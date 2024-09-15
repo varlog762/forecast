@@ -1,14 +1,19 @@
 <script setup>
+import { ref } from 'vue'
+
+import c from './constants/constants.js'
 import WeatherSummary from './components/WeatherSummary.vue'
 import HighLights from './components/HighLights.vue'
 
-const { VITE_API_KEY } = import.meta.env
-console.log(VITE_API_KEY)
+const API_KEY = import.meta.env.VITE_API_KEY
+const BASE_URL = c.BASE_URL
+
+const city = ref('Belgrade')
+const weatherInfo = ref(null)
 </script>
 
 <template>
   <div class="page">
-    <div id="XXX">{{ VITE_API_KEY }}</div>
     <main class="main">
       <div class="container">
         <div class="laptop">
@@ -16,7 +21,7 @@ console.log(VITE_API_KEY)
             <section class="section section-left">
               <div class="info">
                 <div class="city-inner">
-                  <input type="text" class="search" />
+                  <input v-model="city" type="text" class="search" />
                 </div>
                 <weather-summary></weather-summary>
               </div>
