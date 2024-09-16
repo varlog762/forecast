@@ -11,16 +11,17 @@ const prop = defineProps({
   }
 })
 
+const timezone = computed(() => prop.weatherInfo?.timezone)
 const sunriseTime = computed(() => {
-  return getTime(prop.weatherInfo?.sys?.sunrise)
+  return getTime(prop.weatherInfo?.sys?.sunrise + timezone.value)
 })
 const sunsetTime = computed(() => {
-  return getTime(prop.weatherInfo?.sys?.sunset)
+  return getTime(prop.weatherInfo?.sys?.sunset + timezone.value)
 })
 </script>
 
 <template>
-  <section class="section section-right" v-if="weatherInfo?.weather">
+  <section class="section section-right">
     <div class="section highlights">
       <div class="title">Today's Highlights</div>
       <div class="highlights-wrapper">

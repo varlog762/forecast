@@ -1,15 +1,17 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 import WeatherSummary from './components/WeatherSummary.vue'
 import HighlightsComponent from './components/HighlightsComponent.vue'
 import CoordsComponent from './components/CoordsComponent.vue'
 import HumidityComponent from './components/HumidityComponent.vue'
 import { getWeatherInfo } from './services/weatherApiService.js'
+import { capitalizeFirstLetter } from './utils/utils'
 
 const city = ref('Belgrade')
 
 const weatherInfo = ref(null)
+const isError = computed(() => weatherInfo.value?.cod !== 200)
 
 onMounted(async () => {
   weatherInfo.value = await getWeatherInfo(city.value)
@@ -17,7 +19,6 @@ onMounted(async () => {
 
 const updateWeather = async () => {
   weatherInfo.value = await getWeatherInfo(city.value)
-  city.value = ''
 }
 </script>
 <template>
@@ -26,17 +27,23 @@ const updateWeather = async () => {
       <div class="container">
         <div class="laptop">
           <div class="sections">
-            <section class="section section-left">
+            <section :class="{ 'section-error': isError }" class="section section-left">
               <div class="info">
                 <div class="city-inner">
                   <input @keyup.enter="updateWeather" v-model="city" type="text" class="search" />
                 </div>
-                <weather-summary :weatherInfo="weatherInfo"></weather-summary>
+                <weather-summary v-if="!isError" :weatherInfo="weatherInfo"></weather-summary>
+                <div v-else class="error">
+                  <div class="error-title">Oooops! Something went wrong!</div>
+                  <div v-if="weatherInfo?.message" class="error-message">
+                    {{ capitalizeFirstLetter(weatherInfo?.message) }}
+                  </div>
+                </div>
               </div>
             </section>
-            <highlights-component :weatherInfo="weatherInfo"></highlights-component>
+            <highlights-component v-if="!isError" :weatherInfo="weatherInfo"></highlights-component>
           </div>
-          <div class="sections" v-if="weatherInfo?.weather">
+          <div class="sections" v-if="!isError">
             <coords-component :coord="weatherInfo?.coord"></coords-component>
             <humidity-component :humidity="weatherInfo?.main?.humidity"></humidity-component>
           </div>
@@ -83,6 +90,12 @@ const updateWeather = async () => {
     width: 100%;
     padding-right: 0;
   }
+
+  &.section-error {
+    min-width: 235px;
+    width: auto;
+    padding-right: 0;
+  }
 }
 
 .section-right {
@@ -112,6 +125,17 @@ const updateWeather = async () => {
     background-size: contain;
     transform: translateY(50%);
     cursor: pointer;
+  }
+}
+
+.error {
+  padding: 10px;
+  text-align: center;
+
+  &-title {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
 }
 

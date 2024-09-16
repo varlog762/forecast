@@ -8,10 +8,6 @@ export const getWeatherInfo = async (city) => {
     const url = `${BASE_URL}?q=${city}&units=metric&appid=${API_KEY}`
     const response = await fetch(url)
 
-    if (!response.ok) {
-      return getWeatherInfo('Istanbul')
-    }
-
     const data = await response.json()
 
     return data
