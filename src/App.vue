@@ -1,17 +1,29 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 import c from './constants/constants.js'
 import WeatherSummary from './components/WeatherSummary.vue'
 import HighLights from './components/HighLights.vue'
+import { getWeatherInfo } from './services/weatherApiService.js'
 
 const API_KEY = import.meta.env.VITE_API_KEY
 const BASE_URL = c.BASE_URL
-
 const city = ref('Belgrade')
-const weatherInfo = ref(null)
-</script>
+const url = computed(() => {
+  return `${BASE_URL}?q=${city.value}&units=metric&appid=${API_KEY}`
+})
 
+const weatherInfo = ref(null)
+
+onMounted(async () => {
+  weatherInfo.value = await getWeatherInfo(url.value)
+  console.log(weatherInfo.value)
+})
+
+const updateWeather = async () => {
+  weatherInfo.value = await getWeatherInfo(url.value)
+}
+</script>
 <template>
   <div class="page">
     <main class="main">
@@ -21,9 +33,9 @@ const weatherInfo = ref(null)
             <section class="section section-left">
               <div class="info">
                 <div class="city-inner">
-                  <input v-model="city" type="text" class="search" />
+                  <input @keyup.enter="updateWeather" v-model="city" type="text" class="search" />
                 </div>
-                <weather-summary></weather-summary>
+                <weather-summary :weatherInfo="weatherInfo"></weather-summary>
               </div>
             </section>
             <section class="section section-right">

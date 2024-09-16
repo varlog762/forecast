@@ -1,4 +1,4 @@
-export const getData = async (url) => {
+export const getWeatherInfo = async (url) => {
   try {
     const response = await fetch(url)
     const data = await response.json()
