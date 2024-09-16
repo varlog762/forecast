@@ -1,17 +1,24 @@
 <script setup>
 import { capitalizeFirstLetter } from '../utils/utils.js'
 
+// eslint-disable-next-line no-unused-vars
 const prop = defineProps({
   weatherInfo: {
     type: [Object, null],
     required: true
   }
 })
+
+const today = new Date().toLocaleString('en-EN', {
+  weekday: 'short',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+})
 </script>
 
 <template>
   <div class="summary" v-if="weatherInfo?.weather">
-    {{ weatherInfo.name }}
     <div
       :style="`background-image: url('/src/assets/img/weather-main/${weatherInfo?.weather[0]?.description}.png')`"
       class="pic-main"
@@ -23,7 +30,7 @@ const prop = defineProps({
       </div>
     </div>
     <div class="city text-block">{{ `${weatherInfo.name}, ${weatherInfo.sys.country}` }}</div>
-    <div class="date text-block">Thu, March 16, 2023</div>
+    <div class="date text-block">{{ today }}</div>
   </div>
 </template>
 
