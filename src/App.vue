@@ -1,29 +1,22 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 
-import c from './constants/constants.js'
 import WeatherSummary from './components/WeatherSummary.vue'
 import HighlightsComponent from './components/HighlightsComponent.vue'
 import CoordsComponent from './components/CoordsComponent.vue'
 import HumidityComponent from './components/HumidityComponent.vue'
 import { getWeatherInfo } from './services/weatherApiService.js'
 
-const API_KEY = import.meta.env.VITE_API_KEY
-const BASE_URL = c.BASE_URL
 const city = ref('Belgrade')
-const url = computed(() => {
-  return `${BASE_URL}?q=${city.value}&units=metric&appid=${API_KEY}`
-})
 
 const weatherInfo = ref(null)
 
 onMounted(async () => {
-  weatherInfo.value = await getWeatherInfo(url.value)
-  console.log(weatherInfo.value)
+  weatherInfo.value = await getWeatherInfo(city.value)
 })
 
 const updateWeather = async () => {
-  weatherInfo.value = await getWeatherInfo(url.value)
+  weatherInfo.value = await getWeatherInfo(city.value)
   city.value = ''
 }
 </script>
@@ -41,11 +34,11 @@ const updateWeather = async () => {
                 <weather-summary :weatherInfo="weatherInfo"></weather-summary>
               </div>
             </section>
-            <highlights-component></highlights-component>
+            <highlights-component :weatherInfo="weatherInfo"></highlights-component>
           </div>
-          <div class="sections">
-            <coords-component :weatherInfo="weatherInfo"></coords-component>
-            <humidity-component :weatherInfo="weatherInfo"></humidity-component>
+          <div class="sections" v-if="weatherInfo?.weather">
+            <coords-component :coord="weatherInfo?.coord"></coords-component>
+            <humidity-component :humidity="weatherInfo?.main?.humidity"></humidity-component>
           </div>
         </div>
       </div>

@@ -1,23 +1,21 @@
 <script setup>
 // eslint-disable-next-line no-unused-vars
 const prop = defineProps({
-  weatherInfo: {
-    type: [Object, null],
+  humidity: {
+    type: Number,
     required: true
   }
 })
 </script>
 
 <template>
-  <section class="section-bottom" v-if="weatherInfo?.main?.humidity">
+  <section class="section-bottom">
     <div class="block-bottom">
       <div class="block-bottom-inner">
         <div class="block-bottom-pic pic-humidity"></div>
         <div class="block-bottom-texts">
           <div class="block-bottom-text-block">
-            <div class="block-bottom-text-block-title">
-              Humidity: {{ weatherInfo?.main?.humidity }} %
-            </div>
+            <div class="block-bottom-text-block-title">Humidity: {{ humidity }} %</div>
             <div class="block-bottom-text-block-desc">
               Humidity is the concentration of water vapor present in the air. Water vapor, the
               gaseous state of water, is generally invisible to the human eye.
