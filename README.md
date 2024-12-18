@@ -37,7 +37,7 @@ The app will be available at http://localhost:5173.
 ## Environment Variables
 
 To run this project, you need an API key from [OpenWeatherMap](https://openweathermap.org/).
-1. Create a .env file in the root of the project.
+1. Create a ***.env*** file in the root of the project.
 2. Add your API key:
    ```bash
    VITE_API_KEY=your_openweathermap_api_key
