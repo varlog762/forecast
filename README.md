@@ -1,4 +1,4 @@
-# forecast
+# Forecast
 
 Forecast is a Vue 3 application that provides current weather details for any city using data from the OpenWeatherMap API (version 2.5).
 
@@ -32,11 +32,11 @@ Forecast is a Vue 3 application that provides current weather details for any ci
    ```bash
    npm run dev
 
-## Project Setup
+The app will be available at http://localhost:5173.
 
-```sh
-npm install
-```
+## Environment Variables
+
+To run this project, you need an API key from [OpenWeatherMap](https://openweathermap.org/).
 
 ### Compile and Hot-Reload for Development
 
