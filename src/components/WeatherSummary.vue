@@ -1,7 +1,19 @@
 <script setup>
-import { capitalizeFirstLetter } from '../utils/utils.js'
+/**
+ * This component displays a weather summary for a given city.
+ * It shows the current temperature, weather description, city name, country, and the date.
+ * It also sets a weather-related background image based on the weather description.
+ * 
+ * Props:
+ * @prop {Object} weatherInfo: An object containing weather data from an API, required to render the component. 
+ * 
+ * Dependencies:
+ * - capitalizeFirstLetter: A utility function that capitalizes the first letter of a string.
+ * 
+ * The component uses scoped styles for layout and design, including background images and icon placement.
+ */
+import { capitalizeFirstLetter } from '@/utils/utils'
 
-// eslint-disable-next-line no-unused-vars
 const prop = defineProps({
   weatherInfo: {
     type: [Object, null],

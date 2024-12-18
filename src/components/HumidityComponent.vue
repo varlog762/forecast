@@ -1,5 +1,5 @@
 <script setup>
-// eslint-disable-next-line no-unused-vars
+// This prop ensures the component receives a numeric value for humidity
 const prop = defineProps({
   humidity: {
     type: Number,
