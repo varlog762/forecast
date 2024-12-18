@@ -2,6 +2,9 @@
 
 Forecast is a Vue 3 application that provides current weather details for any city using data from the OpenWeatherMap API (version 2.5).
 
+![SCR-20241218-mefn](https://github.com/user-attachments/assets/4d6b72bb-0f2e-408f-961e-88fe65e0a9c4)
+
+
 ## Features
 
 - **Search for weather information by city name.**
