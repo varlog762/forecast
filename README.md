@@ -13,14 +13,24 @@ Forecast is a Vue 3 application that provides current weather details for any ci
    - Sunrise and sunset times.
 - **Clean and responsive UI.**
 
-## Installation
+## How to Run
 
-Follow these steps to set up and run the project locally:
-
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/varlog762/forecast.git
+
+2. **Navigate to the project directory:**
+   ```bash
    cd forecast
+
+3. **Install dependencies:**
+   ```bash
+   npm install
+
+4. **Set up environment variables (see below).**
+5. **Run the development server:**
+   ```bash
+   npm run dev
 
 ## Project Setup
 
